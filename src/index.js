@@ -12,6 +12,8 @@ function createComponent(providerName, fn, propTypes, contextTypes, customStatic
   const componentName = Component.displayName || Component.name;
   Provider.displayName = `${componentName}${providerName}`;
 
+  hoistNonReactStatics(Provider, Component, customStatics);
+
   if (contextTypes) {
     Provider.contextTypes = contextTypes;
   }
@@ -22,8 +24,6 @@ function createComponent(providerName, fn, propTypes, contextTypes, customStatic
       ...propTypes,
     };
   }
-
-  hoistNonReactStatics(Provider, Component, customStatics);
 
   return Provider;
 }
