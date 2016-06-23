@@ -1,11 +1,11 @@
 import { createElement } from 'react';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 
-function createComponent(providerName, fn, propTypes, contextTypes, customStatics, Component) {
-  function Provider(props, ...args) {
+function createComponent(providerName, fn, propTypes, contextTypes, customStatics, Component, args) {
+  function Provider(props, context) {
     return createElement(Component, {
       ...props,
-      ...fn(props, ...args),
+      ...fn(props, context, args),
     });
   }
 
@@ -40,9 +40,9 @@ export default function provideProps(providerName, fn, propTypes, contextTypes, 
   return function provider(...args) {
     // support for decorator pattern
     if (args.length === 0) {
-      return (Component) => createComponent(providerName, fn, propTypes, contextTypes, customStatics, Component);
+      return (Component, ...decoratorArgs) => createComponent(providerName, fn, propTypes, contextTypes, customStatics, Component, decoratorArgs);
     }
 
-    return createComponent(providerName, fn, propTypes, contextTypes, customStatics, ...args);
+    return createComponent(providerName, fn, propTypes, contextTypes, customStatics, args);
   };
 }
