@@ -1,7 +1,7 @@
 import { createElement } from 'react';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 
-function createComponent(providerName, fn, propTypes, customStatics, Component) {
+function createComponent(providerName, fn, propTypes, contextTypes, customStatics, Component) {
   function Provider(props, ...args) {
     return createElement(Component, {
       ...props,
@@ -11,6 +11,10 @@ function createComponent(providerName, fn, propTypes, customStatics, Component) 
 
   const componentName = Component.displayName || Component.name;
   Provider.displayName = `${componentName}${providerName}`;
+
+  if (contextTypes) {
+    Provider.contextTypes = contextTypes;
+  }
 
   if (propTypes) {
     Component.propTypes = {
@@ -24,7 +28,7 @@ function createComponent(providerName, fn, propTypes, customStatics, Component) 
   return Provider;
 }
 
-export default function provideProps(providerName, fn, propTypes, customStatics) {
+export default function provideProps(providerName, fn, propTypes, contextTypes, customStatics) {
   if (!fn) {
     throw new Error('fn is undefined');
   }
@@ -36,9 +40,9 @@ export default function provideProps(providerName, fn, propTypes, customStatics)
   return function provider(...args) {
     // support for decorator pattern
     if (args.length === 0) {
-      return (Component) => createComponent(providerName, fn, propTypes, customStatics, Component);
+      return (Component) => createComponent(providerName, fn, propTypes, contextTypes, customStatics, Component);
     }
 
-    return createComponent(providerName, fn, propTypes, customStatics, ...args);
+    return createComponent(providerName, fn, propTypes, contextTypes, customStatics, ...args);
   };
 }
