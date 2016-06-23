@@ -13,7 +13,6 @@ import { PropTypes } from 'react';
 import createProvider from 'react-provide-props';
 
 const provider = createProvider('PlaceholderProvider', (props, context) => ({
-  ...props,
   placeholder: `What is your favorite color ${props.name}?`,
 }), {
   placeholder: PropTypes.string,

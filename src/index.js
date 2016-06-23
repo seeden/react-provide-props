@@ -2,8 +2,11 @@ import { createElement } from 'react';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 
 function createComponent(providerName, fn, propTypes, customStatics, Component) {
-  function Provider(...args) {
-    return createElement(Component, fn(...args));
+  function Provider(props, ...args) {
+    return createElement(Component, {
+      ...props,
+      ...fn(props, ...args),
+    });
   }
 
   const componentName = Component.displayName || Component.name;
