@@ -37,15 +37,20 @@ export default function provideProps(providerName, fn, propTypes, contextTypes, 
     throw new Error('Name is undefined');
   }
 
-  return function provider(...args) {
+  return function provider(Component, ...args) {
     // support for decorator pattern
-    if (!args.length) {
-      return (Component, ...decoratorArgs) => createComponent(
+    if (typeof Component !== 'function') {
+      return (ComponentToDecorate) => createComponent(
         providerName,
         fn,
-        propTypes, contextTypes, customStatics, Component, ...decoratorArgs);
+        propTypes,
+        contextTypes,
+        customStatics,
+        ComponentToDecorate,
+        Component,
+        ...args);
     }
 
-    return createComponent(providerName, fn, propTypes, contextTypes, customStatics, ...args);
+    return createComponent(providerName, fn, propTypes, contextTypes, customStatics, Component, ...args);
   };
 }
