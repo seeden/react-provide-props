@@ -10,7 +10,7 @@ function createComponent(providerName, fn, propTypes, contextTypes, customStatic
   }
 
   const componentName = Component.displayName || Component.name;
-  Provider.displayName = `${componentName}${providerName}`;
+  Provider.displayName = `${providerName}${componentName}`;
 
   hoistNonReactStatics(Provider, Component, customStatics);
 
@@ -39,8 +39,11 @@ export default function provideProps(providerName, fn, propTypes, contextTypes, 
 
   return function provider(...args) {
     // support for decorator pattern
-    if (args.length === 0) {
-      return (Component, ...decoratorArgs) => createComponent(providerName, fn, propTypes, contextTypes, customStatics, Component, ...decoratorArgs);
+    if (!args.length) {
+      return (Component, ...decoratorArgs) => createComponent(
+        providerName,
+        fn,
+        propTypes, contextTypes, customStatics, Component, ...decoratorArgs);
     }
 
     return createComponent(providerName, fn, propTypes, contextTypes, customStatics, ...args);

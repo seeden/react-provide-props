@@ -1,4 +1,5 @@
 # Change/History Log
 
 This project adheres to [Semantic Versioning](http://semver.org/).
-Every release, along with the migration instructions, is documented on the Github [Releases](https://github.com/CherrySoftware/react-translate-maker/releases) page.
+Every release, along with the migration instructions, is documented on the Github
+[Releases](https://github.com/seeden/react-provide-props/releases) page.
