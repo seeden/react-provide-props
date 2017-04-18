@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { Component as ReactComponent } from 'react';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 
 function createComponent(providerName, fn, propTypes, contextTypes, customStatics, Component, ...args) {
-  function Provider(props, context) {
-    return <Component {...props} {...fn(props, context, ...args)} />;
+  class Provider extends ReactComponent {
+    render() {
+      return (
+        <Component
+          {...this.props}
+          {...fn(this.props, this.context, ...args)}
+        />
+      );
+    }
+
   }
 
   const componentName = Component.displayName || Component.name;
