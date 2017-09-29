@@ -1,6 +1,6 @@
 {
   "name": "react-provide-props",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Create react higher-order components (providers) simply",
   "main": "dist/index.js",
   "keywords": [
