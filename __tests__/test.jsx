@@ -1,8 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import should from 'should';
-import { findDOMNode } from 'react-dom';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { shallow, mount, render } from 'enzyme';
-import TestUtils from 'react-addons-test-utils';
 import createProvider from '../src';
 
 describe('provider', () => {
@@ -29,8 +27,8 @@ describe('provider', () => {
 
     expect(wrapper.html()).toBe('<input type="text" placeholder="What is your favorite color Zlatko?">');
 
-    MyUpdatedComponent.displayName.should.equal('PlaceholderProviderMyComponent');
-    MyUpdatedComponent.onEnter().should.equal('onEnter function');
+    expect(MyUpdatedComponent.displayName).toBe('PlaceholderProviderMyComponent');
+    expect(MyUpdatedComponent.onEnter()).toBe('onEnter function');
   });
 
   it('should be able to create simple provider', () => {

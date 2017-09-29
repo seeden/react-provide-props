@@ -11,7 +11,6 @@ function createComponent(providerName, fn, propTypes, contextTypes, customStatic
         />
       );
     }
-
   }
 
   const componentName = Component.displayName || Component.name;
@@ -45,7 +44,7 @@ export default function provideProps(providerName, fn, propTypes, contextTypes, 
   return function provider(Component, ...args) {
     // support for decorator pattern
     if (typeof Component !== 'function') {
-      return (ComponentToDecorate) => createComponent(
+      return ComponentToDecorate => createComponent(
         providerName,
         fn,
         propTypes,
